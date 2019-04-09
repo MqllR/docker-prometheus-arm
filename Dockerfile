@@ -1,7 +1,7 @@
 FROM debian:9
 MAINTAINER MqllR <>
 
-ARG PROMETHEUS_VERSION=2.5.0
+ARG PROMETHEUS_VERSION=2.8.1
 ARG ARCH=arm64
 ARG PROMETHEUS_URL=https://github.com/prometheus/prometheus/releases/download/v${PROMETHEUS_VERSION}/prometheus-${PROMETHEUS_VERSION}.linux-arm64.tar.gz
 
@@ -18,12 +18,12 @@ ENV PROMETHEUS_CONFIG /prometheus.yml
 ENV PROMETHEUS_STORAGE /data
 ENV PROMETHEUS_LOG info
 
+
 COPY --from=0 /prometheus /usr/local/bin/prometheus
 COPY . .
 
-EXPOSE 9090
-
 VOLUME $PROMETHEUS_STORAGE
-VOLUME $PROMETHEUS_CONFIG
+
+EXPOSE 9090
 
 ENTRYPOINT [ "./entrypoint.sh" ]
